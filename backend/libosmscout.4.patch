@@ -1,0 +1,33 @@
+diff --git a/libosmscout-client-qt/src/osmscoutclientqt/MapWidget.cpp b/libosmscout-client-qt/src/osmscoutclientqt/MapWidget.cpp
+index d032f0e7f..965942e1a 100644
+--- a/libosmscout-client-qt/src/osmscoutclientqt/MapWidget.cpp
++++ b/libosmscout-client-qt/src/osmscoutclientqt/MapWidget.cpp
+@@ -106,19 +106,21 @@ void MapWidget::translateToTouch(QMouseEvent* event, Qt::TouchPointStates states
+     touchPoint.setPressure(1);
+     touchPoint.setPos(event->pos());
+     touchPoint.setState(states);
+-#else
+-    QEventPoint touchPoint(0, QEventPoint::Pressed, event->pos(), QPointF());
+-#endif
+-
+     QList<QTouchEvent::TouchPoint> points;
+     points << touchPoint;
+ #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+-    QTouchEvent touchEvnt(QEvent::TouchBegin,0, Qt::NoModifier, 0, points);
+-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
++    QTouchEvent touchEvnt(QEvent::TouchBegin, 0, Qt::NoModifier, 0, points);
++#else
+     QTouchEvent touchEvnt(QEvent::TouchBegin, 0, Qt::NoModifier, Qt::TouchPointStates(), points);
++#endif
+ #else
+-    QTouchEvent touchEvnt(QEvent::TouchBegin, 0, Qt::NoModifier, points);
++    // TODO: rework
++    // 6.7.2: CTOR QEventPoint fails to initialize the position, so pass directly event points
++    // 6.7.2: Without passing a valid pointer to device, it will crash later on released event by
++    //        calling QQuickWindowPrivate::clearGrabbers >> QPointerEvent::setExclusiveGrabber
++    QTouchEvent touchEvnt(QEvent::TouchBegin, event->pointingDevice(), Qt::NoModifier, event->points());
+ #endif
++
+     //qDebug() << "translate mouse event to touch event: "<< touchEvnt;
+     touchEvent(&touchEvnt);
+ }
