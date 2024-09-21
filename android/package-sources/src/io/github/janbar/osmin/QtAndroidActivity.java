@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.window.OnBackInvokedDispatcher;
 
-import org.qtproject.qt.android.QtActivityBase;
+import org.qtproject.qt.android.bindings.QtActivity;
 
-public class QtAndroidActivity extends QtActivityBase
+public class QtAndroidActivity extends QtActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)

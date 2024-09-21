@@ -1,19 +1,19 @@
-BUILD_DIR=build-x64-607
+BUILD_DIR=build-arm64-606
 rm -rf $BUILD_DIR/*
 mkdir -p $BUILD_DIR
 
-export JAVA_HOME=$HOME/bin/java/jdk-21.0.4
+export JAVA_HOME=$HOME/bin/java/jdk-17.0.12
 export ANDROID_SDK_ROOT=$HOME/bin/android/sdk
 export ANDROID_NDK=$HOME/bin/android/sdk/ndk/26.3.11579264
-export QT_DIR=$HOME/bin/Qt/6.7.2/android_x86_64
-export QT_HOST_PATH=$HOME/bin/Qt/6.7.2/gcc_64
+export QT_DIR=$HOME/bin/Qt/6.6.3/android_arm64_v8a
+export QT_HOST_PATH=$HOME/bin/Qt/6.6.3/gcc_64
 
 cmake .. -B $BUILD_DIR -DCMAKE_SYSTEM_NAME=Android \
 -DCMAKE_PREFIX_PATH=${QT_DIR} \
 -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
 -DCMAKE_MAKE_PROGRAM=$ANDROID_NDK/prebuilt/linux-x86_64/bin/make \
--DCMAKE_BUILD_TYPE=Debug \
--DANDROID_ABI="x86_64" \
+-DCMAKE_BUILD_TYPE=Release \
+-DANDROID_ABI="arm64-v8a" \
 -DANDROID_SDK_MINVER=26 \
 -DANDROID_SDK_TARGET=26 \
 -DANDROID_NATIVE_API_LEVEL=24 \
