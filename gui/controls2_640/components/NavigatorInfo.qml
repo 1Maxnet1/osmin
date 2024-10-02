@@ -17,7 +17,6 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import QtQml 2.2
 import Osmin 1.0
 
 Item {
@@ -194,15 +193,9 @@ Item {
                 id: speed
                 anchors.verticalCenter: parent.verticalCenter
                 text: Converter.readableSpeed(navigator.currentSpeed > 0 ? navigator.currentSpeed : 0.0)
-                color: styleMap.popover.foregroundColor
+                color: (navigator.maximumSpeed > 0 && navigator.maximumSpeed < (navigator.currentSpeed - 10.0)
+                        ? "red" : styleMap.popover.foregroundColor)
                 font.pixelSize: units.fs("x-large")
-            }
-            Label {
-                id: maxspeed
-                anchors.verticalCenter: parent.verticalCenter
-                text: navigator.maximumSpeed > 0 ? Converter.readableSpeed(navigator.maximumSpeed) : ""
-                color: styleMap.popover.highlightedColor
-                font.pixelSize: units.fs("medium")
             }
             MapIcon {
                 anchors.verticalCenter: parent.verticalCenter
@@ -226,7 +219,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 text: navigator.arrivalEstimate + " ~ " + Converter.panelDistance(navigator.remainingDistance)
                 color: styleMap.popover.foregroundColor
-                font.pixelSize: units.fs("medium")
+                font.pixelSize: units.fs("large")
             }
         }
     }

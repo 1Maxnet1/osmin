@@ -16,7 +16,6 @@
  */
 
 import QtQuick 2.2
-import QtQml 2.2
 import Osmin 1.0
 
 Item {
@@ -122,7 +121,7 @@ Item {
             }
         }
 
-        onTargetReached: {
+        onTargetReached: function(targetBearing, targetDistance) {
             console.log("Navigator: Target reached");
             navigator.targetReached(targetDistance, targetBearing);
         }

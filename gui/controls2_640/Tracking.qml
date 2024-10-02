@@ -17,7 +17,6 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import QtQml 2.2
 import Osmin 1.0
 import "./components"
 
@@ -223,10 +222,18 @@ PopOver {
                 color: styleMap.popover.highlightedColor
                 font.pixelSize: units.fs("medium")
             }
-            Label {
-                text: Converter.readableDegreeGeocaching(180.0 * Tracker.bearing / Math.PI)
-                font.pixelSize: units.fs("large")
-                color: foregroundColor
+            Row {
+                spacing: units.gu(1)
+                Label {
+                    text: Converter.readableDegree(180.0 * Tracker.bearing / Math.PI)
+                    font.pixelSize: units.fs("large")
+                    color: foregroundColor
+                }
+                Label {
+                    text: "(" + Converter.readableCardinal(180.0 * Tracker.bearing / Math.PI) + ")"
+                    font.pixelSize: units.fs("large")
+                    color: foregroundColor
+                }
             }
         }
     }
